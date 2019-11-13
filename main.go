@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi"
+	"github.com/manuelmunoz00/api-rest-go/models"
 )
 
 // func homeLink(w http.ResponseWriter, r *http.Request) {
@@ -69,6 +70,8 @@ func IsLoggedInAdmin(r *http.Request) bool {
 }
 
 func main() {
+	var c models.Cliente
+	c.Correo = "correo@gmail.com"
 	// router := mux.NewRouter().StrictSlash(true)
 	// router.HandleFunc("/", homeLink)
 	// log.Fatal(http.ListenAndServe(":8080", router))
