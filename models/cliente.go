@@ -1,7 +1,12 @@
 package models
 
+import (
+	"github.com/jinzhu/gorm"
+)
+
 // Cliente struct
 type Cliente struct {
+	gorm.Model
 	ID        uint   `json:"id"`
 	Rut       string `json:"rut"`
 	Nombres   string `json:"nombres"`
