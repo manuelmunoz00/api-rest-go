@@ -1,37 +1,42 @@
 package main
 
 import (
+	"fmt"
+	"log"
 	"math/rand"
 	"net/http"
+	"os"
 
 	"github.com/go-chi/chi"
+	"github.com/jinzhu/gorm"
+	"github.com/joho/godotenv"
 	"github.com/manuelmunoz00/api-rest-go/models"
 )
 
-// func homeLink(w http.ResponseWriter, r *http.Request) {
+func homeLink(w http.ResponseWriter, r *http.Request) {
 
-// 	err := godotenv.Load()
-// 	if err != nil {
-// 		log.Fatal("Error loading env file")
-// 	}
-// 	username := os.Getenv("DB_USER")
-// 	password := os.Getenv("DB_PASS")
-// 	dbName := os.Getenv("DB_NAME")
-// 	dbHost := os.Getenv("DB_HOST")
-// 	dbPort := os.Getenv("DB_PORT")
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading env file")
+	}
+	username := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASS")
+	dbName := os.Getenv("DB_NAME")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
 
-// 	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, dbHost, dbPort, dbName)
-// 	db, err := gorm.Open("mysql", dbURL)
-// 	defer db.Close()
-// 	if err != nil {
-// 		fmt.Println(err)
-// 	} else {
-// 		log.Println("Connection Established")
-// 		// fmt.Println(db)
+	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, dbHost, dbPort, dbName)
+	db, err := gorm.Open("mysql", dbURL)
+	defer db.Close()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		log.Println("Connection Established")
+		// fmt.Println(db)
 
-// 	}
-// 	fmt.Fprintf(w, "Welcome")
-// }
+	}
+	fmt.Fprintf(w, "Welcome")
+}
 
 func homePageHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("This is home page"))
