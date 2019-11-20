@@ -7,11 +7,11 @@ import (
 // Cliente struct
 type Cliente struct {
 	gorm.Model
-	ID        uint   `json:"id"`
-	Rut       string `json:"rut"`
-	Nombres   string `json:"nombres"`
-	Apellidos string `json:"apellidos"`
-	Correo    string `json:"correo"`
+	ID        uint `gorm:"PRIMARY_KEY;AUTO_INCREMENT"`
+	Rut       string
+	Nombres   string
+	Apellidos string
+	Correo    string
 }
 
 // NewCliente función para crear nuevo cliente

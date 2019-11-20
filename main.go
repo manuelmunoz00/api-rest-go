@@ -8,6 +8,7 @@ import (
 	"os"
 
 	"github.com/go-chi/chi"
+	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"github.com/manuelmunoz00/api-rest-go/models"
@@ -74,6 +75,31 @@ func IsLoggedInAdmin(r *http.Request) bool {
 	return rand.Float32() < 0.5
 }
 
+func migraciones(w http.ResponseWriter, r *http.Request) {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Error loading env file")
+	}
+	username := os.Getenv("DB_USER")
+	password := os.Getenv("DB_PASS")
+	dbName := os.Getenv("DB_NAME")
+	dbHost := os.Getenv("DB_HOST")
+	dbPort := os.Getenv("DB_PORT")
+
+	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, dbHost, dbPort, dbName)
+	db, err := gorm.Open("mysql", dbURL)
+	defer db.Close()
+	if err != nil {
+		fmt.Println(err)
+	} else {
+		log.Println("Connection Established")
+		// fmt.Println(db)
+
+	}
+	db.AutoMigrate(&models.Cliente{})
+	w.Write([]byte("Migraciones"))
+}
+
 func main() {
 	var c models.Cliente
 	c.Correo = "correo@gmail.com"
@@ -81,7 +107,7 @@ func main() {
 	// router.HandleFunc("/", homeLink)
 	// log.Fatal(http.ListenAndServe(":8080", router))
 	r := chi.NewRouter()
-	r.Get("/", homePageHandler)
+	r.Get("/", migraciones)
 	// r.Get("/admin", adminPageHandler)
 	r.Mount("/admin", adminRouter())
 	http.ListenAndServe(":3000", r)
