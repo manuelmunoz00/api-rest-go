@@ -8,7 +8,7 @@ import (
 type Servicio struct {
 	gorm.Model
 	// ID     uint `gorm:"PRIMARY_KEY;AUTO_INCREMENT"`
-	Nombre string
-	Precio int
-	Ofetas []*Oferta `gorm:"many2many:oferta_servicios;"`
+	Nombre  string
+	Precio  int
+	Ofertas []*Oferta `gorm:"many2many:oferta_servicios;"`
 }
