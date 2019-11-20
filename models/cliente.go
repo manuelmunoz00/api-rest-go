@@ -7,7 +7,7 @@ import (
 // Cliente struct
 type Cliente struct {
 	gorm.Model
-	ID        uint `gorm:"PRIMARY_KEY;AUTO_INCREMENT"`
+	// ID        uint `gorm:"PRIMARY_KEY;AUTO_INCREMENT"`
 	Rut       string
 	Nombres   string
 	Apellidos string

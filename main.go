@@ -7,8 +7,9 @@ import (
 	"net/http"
 	"os"
 
+	_ "github.com/jinzhu/gorm/dialects/mysql"
+
 	"github.com/go-chi/chi"
-	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	"github.com/joho/godotenv"
 	"github.com/manuelmunoz00/api-rest-go/models"
@@ -88,15 +89,12 @@ func migraciones(w http.ResponseWriter, r *http.Request) {
 
 	dbURL := fmt.Sprintf("%s:%s@tcp(%s:%s)/%s?charset=utf8&parseTime=True&loc=Local", username, password, dbHost, dbPort, dbName)
 	db, err := gorm.Open("mysql", dbURL)
-	defer db.Close()
-	if err != nil {
-		fmt.Println(err)
-	} else {
-		log.Println("Connection Established")
-		// fmt.Println(db)
 
+	if err != nil {
+		panic(err)
 	}
-	db.AutoMigrate(&models.Cliente{})
+	defer db.Close()
+	db.AutoMigrate(models.Cliente{}, &models.Oferta{}, &models.Servicio{})
 	w.Write([]byte("Migraciones"))
 }
 
