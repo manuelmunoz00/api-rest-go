@@ -95,7 +95,17 @@ func migraciones(w http.ResponseWriter, r *http.Request) {
 	}
 	defer db.Close()
 	db.AutoMigrate(models.Cliente{}, &models.Oferta{}, &models.Servicio{})
-	w.Write([]byte("Migraciones"))
+
+	//NuevoCliente
+	cliente := models.Cliente{Rut: "16006363-7", Nombres: "Manuel", Apellidos: "Muñoz", Correo: "manuel.munoz00@gmail.com"}
+	c := &cliente
+	// cliente.NewCliente()
+	// fmt.Println(&cliente)
+	resultado := c.NewCliente()
+	if resultado == true {
+		fmt.Println("nuevocliente ", resultado)
+	}
+	w.Write([]byte("migraciones"))
 }
 
 func main() {

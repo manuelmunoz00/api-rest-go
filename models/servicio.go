@@ -10,5 +10,5 @@ type Servicio struct {
 	// ID     uint `gorm:"PRIMARY_KEY;AUTO_INCREMENT"`
 	Nombre  string
 	Precio  int
-	Ofertas []*Oferta `gorm:"many2many:oferta_servicios;"`
+	Ofertas []Oferta `gorm:"many2many:oferta_servicios;"`
 }
