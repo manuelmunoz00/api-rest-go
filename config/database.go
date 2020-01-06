@@ -5,8 +5,7 @@ import (
 	"os"
 
 	"github.com/jinzhu/gorm"
-	// Register some standard stuff
-	_ "github.com/go-sql-driver/mysql"
+
 	"github.com/joho/godotenv"
 )
 
