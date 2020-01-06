@@ -19,7 +19,7 @@ type Cliente struct {
 
 // NewCliente función para crear nuevo cliente
 func (c *Cliente) NewCliente() bool {
-	fmt.Println(c.Rut)
+	// fmt.Println(c.Rut)
 
 	// Siguiente codigo antes de comentario revisando funciona bien
 	// err := godotenv.Load()
@@ -39,18 +39,15 @@ func (c *Cliente) NewCliente() bool {
 	// return true
 
 	// Revisando
-	err := config.Conectar()
-	fmt.Println(err)
-	var condicion bool
-	if err != nil {
-		fmt.Println("fuera de error")
-		defer config.Cerrar()
-		config.DBcon.Create(c)
-		condicion = true
-	} else {
-		condicion = false
-	}
-	return condicion
+	dbb := config.Conectar()
+	// fmt.Println("error: ", err)
+	fmt.Println("NILLLLLLLL")
+	fmt.Println("fuera de error")
+	// defer config.Cerrar()
+	// config.DBcon.Create(c)
+	dbb.Create(c)
+	dbb.Close()
+	return true
 
 }
 
